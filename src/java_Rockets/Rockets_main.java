@@ -14,6 +14,30 @@ public class Rockets_main {
 		System.out.println(my2ndRocket.getCodeName()+" "+my2ndRocket.getAllMaxPropPower());
 		
 		
+		String rocket1 = my1stRocket.getAllMaxPropPower();
+		String rocket2 = my2ndRocket.getAllMaxPropPower();
+		
+		///TO DO. CREATE SET TARGET POWER
+		//my1stRocket.setTargetPropPower(new int[] { 5, 10, 20});
+		
+		do {
+			String currentRocket1 = my1stRocket.getAllMaxPropPower();			
+			if (currentRocket1 != rocket1) {
+				rocket1 = currentRocket1;
+				System.out.println("rocket1" + rocket1);
+				
+			}
+
+			String currentRocket2 = my2ndRocket.getAllMaxPropPower();			
+			if (currentRocket2 != rocket2) {
+				rocket2 = currentRocket2;
+				System.out.println("rocket2" +rocket2);
+				
+			}
+			
+			
+		}while(true);
+		
 	}
 
 

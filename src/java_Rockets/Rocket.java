@@ -31,6 +31,7 @@ public class Rocket {
 		
 	}
 	
+	
 	public String getAllMaxPropPower() {
 		String allMaxPower = new String("(");
 		Integer maxPoweri;

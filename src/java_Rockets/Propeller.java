@@ -1,21 +1,21 @@
 package java_Rockets;
 
-public class Propeller {
-	
+public class Propeller extends Thread {
+	////ATRIBUTES
 	private int maxPower;
 	private int currentPower;
+	private int targetPower;
 	
-//	private int targetPower;
-//	
-//	public boolean reachTargetPower() {
-//		if(currentPower == targetPower) {
-//			return true;
-//		}else {
-//			return false;
-//		}
-//		
-//	}
+	public boolean reachTargetPower() {
+		if(currentPower == targetPower) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
 	
+	////CONSTRUCTORS
 	public Propeller() {
 		this.currentPower = 0;		
 	}
@@ -23,9 +23,45 @@ public class Propeller {
 	
 	public Propeller(int maxPower) {
 		this.maxPower = maxPower;
-		this.currentPower = 0;		
+		this.currentPower = 0;
+		this.targetPower = 0;
+	}
+	
+	
+	////METHODS
+	public void acelerate() {
+		this.currentPower = this.currentPower + 1;
+	}
+	
+	public void decelerate() {
+		this.currentPower = this.currentPower - 1;
+	}
+	
+	@Override
+	public void run() {
+		
+		do {
+			if(this.currentPower < this.targetPower) {
+				this.acelerate();
+				
+			}else if(this.currentPower > this.targetPower){
+				this.decelerate();
+			}
+			
+			
+			try {
+				Thread.sleep((long) 500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}while(reachTargetPower());
+				
+
 	}
 
+	///GETTERS AND SETTERS
 	
 	public int getMaxPower() {
 		return maxPower;
@@ -44,6 +80,24 @@ public class Propeller {
 			this.currentPower = maxPower;
 		}else {
 			this.currentPower = targetPower;
+		}
+		
+	}
+
+
+
+	public int getTargetPower() {
+		return targetPower;
+	}
+
+
+
+	public void setTargetPower(int targetPower) {
+		if (targetPower <= this.maxPower) {
+			this.targetPower = targetPower;
+			this.run();
+		}else {
+			System.out.println("La potencia elegida no se puede alcanzar en este propulsor");
 		}
 		
 	}
