@@ -1,11 +1,15 @@
 package java_Rockets;
 
+import java.util.Scanner;
+
 public class Rockets_main {
+	
+	boolean executeRockets_main = true;
 	
 	public void main() {
 		
 		System.out.println("Soy el main de rockets");
-		Rocket my1stRocket = new Rocket("32WESSDS", 3);
+		Rocket my1stRocket = new Rocket("32WESSDS", 3);//Utiliza el constructor Propeller() que los inicializa en currentPower = 0
 		my1stRocket.setMaxPropPower(new int[] { 10,30,80 });		
 		System.out.println(my1stRocket.getCodeName()+" "+my1stRocket.getAllMaxPropPower());
 		
@@ -14,30 +18,44 @@ public class Rockets_main {
 		System.out.println(my2ndRocket.getCodeName()+" "+my2ndRocket.getAllMaxPropPower());
 		
 		
-		String rocket1 = my1stRocket.getAllMaxPropPower();
-		String rocket2 = my2ndRocket.getAllMaxPropPower();
+		String prevRocket1PropState = my1stRocket.getAllCurrentPower();
+		String prevRocket2PropState = my2ndRocket.getAllMaxPropPower();
 		
 		///TO DO. CREATE SET TARGET POWER
-		//my1stRocket.setTargetPropPower(new int[] { 5, 10, 20});
+		my1stRocket.setAllTargetPropPower(new int[] { 5, 10, 20});
+		my2ndRocket.setAllTargetPropPower(new int[] { 5, 0, 10, 5, 0, 10});
 		
+		
+				
 		do {
-			String currentRocket1 = my1stRocket.getAllMaxPropPower();			
-			if (currentRocket1 != rocket1) {
-				rocket1 = currentRocket1;
-				System.out.println("rocket1" + rocket1);
-				
+			String currentRocket1PropState = my1stRocket.getAllCurrentPower();
+			String currentRocket2PropState = my2ndRocket.getAllCurrentPower();
+			String output = "Propeller State on each Rocket:";
+			boolean changeInAccel = false;
+			
+			if (!currentRocket1PropState.contentEquals(prevRocket1PropState)) {
+				//System.out.print(" rocket1 :" + currentRocket1PropState);
+				prevRocket1PropState = currentRocket1PropState;
+				changeInAccel = true;
 			}
-
-			String currentRocket2 = my2ndRocket.getAllMaxPropPower();			
-			if (currentRocket2 != rocket2) {
-				rocket2 = currentRocket2;
-				System.out.println("rocket2" +rocket2);
-				
+			if (!currentRocket2PropState.contentEquals(prevRocket2PropState)) {
+				//System.out.print("rocket2 :" + currentRocket2PropState);
+				prevRocket2PropState = currentRocket2PropState;
+				changeInAccel = true;				
+			}
+			
+			
+			if(changeInAccel) {
+				System.out.print("Propeller State on each Rocket:");
+				System.out.print(" \t Rocket1 :" + currentRocket1PropState);
+				System.out.print(" \t Rocket2 :" + currentRocket2PropState);
+				System.out.println();
 			}
 			
 			
 		}while(true);
 		
+				
 	}
 
 

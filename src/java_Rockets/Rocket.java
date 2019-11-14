@@ -52,7 +52,26 @@ public class Rocket {
 		return allMaxPower;
 	}
 	
+	public void setAllTargetPropPower(int AllTargetPropPower[]) {
+		for (int i = 0; i < AllTargetPropPower.length; i++) {
+			propellerList.get(i).setTargetPower(AllTargetPropPower[i]);
+		}
+		
+	}
 	
+	
+	public String getAllCurrentPower() {
+		String delimiter = ",";
+		String allCurrentPower = "";
+		
+		for (int i = 0; i < propellerList.size(); i++) {
+			int currentPowerI = propellerList.get(i).getCurrentPower();
+			allCurrentPower = allCurrentPower.concat(Integer.toString(currentPowerI));		
+			allCurrentPower = allCurrentPower.concat(delimiter);	
+		}
+		
+		return allCurrentPower;
+	}
 	///GETTERS AND SETTERS
 	public String getCodeName() {
 		return codeName;
