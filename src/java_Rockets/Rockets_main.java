@@ -1,6 +1,5 @@
 package java_Rockets;
 
-import java.util.Scanner;
 
 public class Rockets_main {
 	
@@ -30,7 +29,6 @@ public class Rockets_main {
 		do {
 			String currentRocket1PropState = my1stRocket.getAllCurrentPower();
 			String currentRocket2PropState = my2ndRocket.getAllCurrentPower();
-			String output = "Propeller State on each Rocket:";
 			boolean changeInAccel = false;
 			
 			if (!currentRocket1PropState.contentEquals(prevRocket1PropState)) {
