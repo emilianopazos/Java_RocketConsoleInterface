@@ -56,7 +56,8 @@ public class Rocket {
 	public void setAllTargetPropPower(int AllTargetPropPower[]) {
 		for (int i = 0; i < AllTargetPropPower.length; i++) {
 			if (propellerList.get(i).setTargetPower(AllTargetPropPower[i])) {
-				propellerList.get(i).start();
+//				propellerList.get(i).start();
+				new Thread(propellerList.get(i)).start();
 			}
 						
 			
@@ -64,6 +65,17 @@ public class Rocket {
 		
 	}
 	
+//	public void setAllTargetPropPowerTHP(int AllTargetPropPower[]) {
+//		for (int i = 0; i < AllTargetPropPower.length; i++) {
+//			if (propellerList.get(i).setTargetPower(AllTargetPropPower[i])) {
+//				//propellerList.get(i).start();
+//				new Thread(propellerList.get(i)).start();
+//			}
+//						
+//			
+//		}
+//		
+//	}
 	
 	public String getAllCurrentPower() {
 		String delimiter = ",";

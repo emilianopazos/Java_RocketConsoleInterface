@@ -2,6 +2,9 @@ package java_Rockets;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class Rockets_main {
 	Scanner sc = new Scanner(System.in);
@@ -46,6 +49,11 @@ public class Rockets_main {
 
 			case 2:
 				//changePower();
+				
+				
+				//ExecutorService executor = Executors.newFixedThreadPool(10);
+				//ThreadPoolExecutor executor = new Thread
+				
 				
 				
 				break;
@@ -120,7 +128,8 @@ public class Rockets_main {
 			
 		}while(true);
 		
-				
+		
+		
 	}
 
 

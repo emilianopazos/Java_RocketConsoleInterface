@@ -1,6 +1,6 @@
 package java_Rockets;
 
-public class Propeller extends Thread {
+public class Propeller implements Runnable {
 	////ATRIBUTES
 	private int maxPower;
 	private int currentPower;
