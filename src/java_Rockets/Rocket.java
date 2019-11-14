@@ -52,9 +52,14 @@ public class Rocket {
 		return allMaxPower;
 	}
 	
+	///Este es el metodo que nuclea los threads de la pool
 	public void setAllTargetPropPower(int AllTargetPropPower[]) {
 		for (int i = 0; i < AllTargetPropPower.length; i++) {
-			propellerList.get(i).setTargetPower(AllTargetPropPower[i]);
+			if (propellerList.get(i).setTargetPower(AllTargetPropPower[i])) {
+				propellerList.get(i).start();
+			}
+						
+			
 		}
 		
 	}

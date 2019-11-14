@@ -61,7 +61,7 @@ public class Propeller extends Thread {
 			
 		}while(!reachTargetPower());
 				
-
+		
 	}
 
 	///GETTERS AND SETTERS
@@ -95,13 +95,15 @@ public class Propeller extends Thread {
 
 
 
-	public void setTargetPower(int targetPower) {
+	public boolean setTargetPower(int targetPower) {
 		if (targetPower <= this.maxPower) {
 			this.targetPower = targetPower;
 			//this.run();
-			this.start();
+			//this.start();
+			return true;
 		}else {
 			System.out.println("La potencia elegida no se puede alcanzar en este propulsor");
+			return false;
 		}
 		
 	}

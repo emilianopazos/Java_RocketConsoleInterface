@@ -33,20 +33,25 @@ public class Rockets_main {
 		
 		do {
 			int userChoice;
-			System.out.println("What do you need?: \n\t 1-SHOW ROCKETS \n\t 2-CHANGE POWER \\n\\t 3-EXIT APP");
+			System.out.println("What do you need?: \n\t 1-SHOW ROCKETS WITH ITS MAXPOWER \n\t 2-CHANGE POWER \\n\\t 3-EXIT APP");
 			userChoice = sc.nextInt();
 			
 			switch (userChoice) {
 			case 1:
-				this.showRockets();
+				//this.showRockets();//For myRockets (Arraylist of Rockets)
+				System.out.println(my1stRocket.getCodeName()+" "+my1stRocket.getAllMaxPropPower());
+				System.out.println(my2ndRocket.getCodeName()+" "+my2ndRocket.getAllMaxPropPower());
+				
 				break;
 
 			case 2:
 				//changePower();
+				
+				
 				break;
 
 			case 3:
-				executeRockets_main = false;
+				this.executeRockets_main = false;
 				break;
 
 			default:
@@ -54,8 +59,16 @@ public class Rockets_main {
 			}
 			
 			
-		}while(executeRockets_main);
+		}while(this.executeRockets_main);
 		
+		////AFTER EXIT DE USER INTARFACE APP, COMES PREVIUS APP WITH CORRECT THREAD IMPLEMENTATION.
+		//Change the .start() from the Propeller itself to the rocket. Was a wrong aproach to thread management.
+		//That is the correct way because the rocket is the one who ask for changing the power of each Propeller
+		//Was in one PUBLIC VOID METHOD (setCurrentPower()) of the "thread object"
+		//Move to Rocket set_target_power() who do the .start on each propeller of the Arraylist
+		
+		//NEXT STEP. Create a threadpool with n threadpools, where n is the number of propeller.
+		//When new power is asked, create the threadpool, prepare and execute()
 		System.out.println("Como Rockets_main te digo adios \n");
 		
 		
@@ -65,7 +78,7 @@ public class Rockets_main {
 		
 		
 		
-		
+		System.out.println("y ahora... Yapa:");
 		
 		
 		
@@ -80,6 +93,7 @@ public class Rockets_main {
 		
 				
 		do {
+					
 			String currentRocket1PropState = my1stRocket.getAllCurrentPower();
 			String currentRocket2PropState = my2ndRocket.getAllCurrentPower();
 			boolean changeInAccel = false;
