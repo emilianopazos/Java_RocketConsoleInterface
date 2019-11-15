@@ -23,7 +23,12 @@ public class Rockets_main {
 		System.out.println("Wellcome to the rockets control panel:");
 		do {
 			int userChoice;
-			System.out.println("What would you like to do?: \n\t 1-SHOW ROCKETS WITH ITS MAXPOWER \n\t 2-CHANGE POWER \n\t 3-EXIT APP \n\t 4-Put rockets on cruise velocity");
+			System.out.println("What would you like to do?:");
+			System.out.println("\t 1-SHOW ROCKETS WITH ITS MAXPOWER");
+			System.out.println("\t 2-CHANGE POWER");
+			System.out.println("\t 3-ROCKET TO CRUISE VELOCITY");
+			System.out.println("\t 4-CHOOSE FINAL VELOCITY WITH ROCKET 1");
+			System.out.println("\t 5-EXIT APP");
 			userChoice = sc.nextInt();
 			
 			switch (userChoice) {
@@ -44,12 +49,8 @@ public class Rockets_main {
 								
 				
 				break;
-
+		
 			case 3:
-				this.executeRockets_main = false;
-				break;
-			
-			case 4:
 				System.out.println("y ahora... Yapa:");
 				boolean velocityCruise = false;
 				String prevRocket0PropState = myRockets.get(0).getAllCurrentPower();
@@ -95,6 +96,38 @@ public class Rockets_main {
 				
 				break;
 
+			case 4:
+				int maxProp0 = myRockets.get(0).getPropellerList().get(0).getMaxPower();
+				int maxProp1 = myRockets.get(0).getPropellerList().get(1).getMaxPower();
+				int maxProp2 = myRockets.get(0).getPropellerList().get(2).getMaxPower();
+				double maxTotalPower = maxProp0 + maxProp1+ maxProp2;
+										
+				System.out.println("introduce vel deseada para rocket 1");
+				int velTarget = sc.nextInt();
+				///Formula provided
+				double potTotalTarget = Math.pow((velTarget / 100), 2);
+				
+				if(potTotalTarget > 120) {
+					System.out.println("Unnreachable!! Sorry you´ll be caught!! (Max 120)");
+				}else {
+					ArrayList<Integer> targetPowersFromVelocity = new ArrayList<Integer>(); 
+					double powerTargetProp0 = maxProp0 / maxTotalPower * potTotalTarget;
+					double powerTargetProp1 = maxProp1 / maxTotalPower * potTotalTarget;
+					double powerTargetProp2 = maxProp2 / maxTotalPower * potTotalTarget;
+					targetPowersFromVelocity.add((int)powerTargetProp0);
+					targetPowersFromVelocity.add((int)powerTargetProp1);
+					targetPowersFromVelocity.add((int)powerTargetProp2);
+					System.out.println(targetPowersFromVelocity);
+					this.myRockets.get(0).setAllTargetPropPowerExecutor(targetPowersFromVelocity);
+										
+				}
+							
+				break;				
+
+			case 5:
+				this.executeRockets_main = false;
+				break;
+				
 			default:
 				break;
 			}
@@ -124,9 +157,9 @@ public class Rockets_main {
 		System.out.println("We have this Rockets available: ");
 		for (Rocket rocket : myRockets) {
 			System.out.println("*****ROCKET ID = " + idRocket);
-			System.out.println("\tCodeName: " + rocket.getCodeName() + "; Q of Prop: " + rocket.getPropellerList().size());
-			System.out.println("\tMaxPower: " + rocket.getAllMaxPropPower());
-			System.out.println("\tCurrentPower: " + rocket.getAllCurrentPower());
+			System.out.println("\t-CodeName: " + rocket.getCodeName() + "; Q of Prop: " + rocket.getPropellerList().size());
+			System.out.println("\t-MaxPower: " + rocket.getAllMaxPropPower());
+			System.out.println("\t-CurrentPower: " + rocket.getAllCurrentPower());
 			idRocket += 1;
 		}
 	}
