@@ -2,10 +2,12 @@ package java_Rockets;
 
 import java.util.ArrayList;
 
+
 public class Rocket {
 	////ATRIBUTES
 	private String codeName;  
 	private ArrayList<Propeller> propellerList = new ArrayList<Propeller>();
+	private ArrayList<Integer> propellerCurrentPower = new ArrayList<Integer>();
 	
 	////CONSTRUCTORS
 	public Rocket(String codeName,int qPropeller) {
@@ -104,6 +106,15 @@ public class Rocket {
 
 	public void setPropellerList(ArrayList<Propeller> propellerList) {
 		this.propellerList = propellerList;
+	}
+
+	public ArrayList<Integer> getPropellerCurrentPower() {
+			
+		for (Propeller prop : this.propellerList) {
+			propellerCurrentPower.add(prop.getCurrentPower());
+		}
+		
+		return propellerCurrentPower;
 	}
 	
 	

@@ -25,7 +25,8 @@ public class SetPower1 {
 			
 		}
 		
-
+		
+		
 	}
 /*
 	public static void main(int[] listado2) {

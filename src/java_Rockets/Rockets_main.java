@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class Rockets_main {
 	Scanner sc = new Scanner(System.in);
 	boolean executeRockets_main = true;
 	ArrayList<Rocket> myRockets = new ArrayList<Rocket>();
-	
-	public void showRockets() {
-		
-	}
 	
 	
 	public void main() {
@@ -23,38 +18,37 @@ public class Rockets_main {
 		
 		Rocket my1stRocket = new Rocket("32WESSDS", 3);//Utiliza el constructor Propeller() que los inicializa en currentPower = 0
 		my1stRocket.setMaxPropPower(new int[] { 10,30,80 });		
-		System.out.println(my1stRocket.getCodeName()+" "+my1stRocket.getAllMaxPropPower());
+		//System.out.println(my1stRocket.getCodeName()+" "+my1stRocket.getAllMaxPropPower());
 		myRockets.add(my1stRocket);		
 		
 		Rocket my2ndRocket = new Rocket("LDSFJA32", 6);
 		my2ndRocket.setMaxPropPower(new int[] { 30,40,50,50,30,10 });		
-		System.out.println(my2ndRocket.getCodeName()+" "+my2ndRocket.getAllMaxPropPower());
+		//System.out.println(my2ndRocket.getCodeName()+" "+my2ndRocket.getAllMaxPropPower());
 		myRockets.add(my2ndRocket);	
-		
-		
-		
+				
 		
 		do {
 			int userChoice;
-			System.out.println("What do you need?: \n\t 1-SHOW ROCKETS WITH ITS MAXPOWER \n\t 2-CHANGE POWER \\n\\t 3-EXIT APP");
+			System.out.println("What do you need?: \n\t 1-SHOW ROCKETS WITH ITS MAXPOWER \n\t 2-CHANGE POWER \n\t 3-EXIT APP");
 			userChoice = sc.nextInt();
 			
 			switch (userChoice) {
 			case 1:
-				//this.showRockets();//For myRockets (Arraylist of Rockets)
-				System.out.println(my1stRocket.getCodeName()+" "+my1stRocket.getAllMaxPropPower());
-				System.out.println(my2ndRocket.getCodeName()+" "+my2ndRocket.getAllMaxPropPower());
-				
+				showAllRockets();
 				break;
 
 			case 2:
 				//changePower();
+				int idRocket = idRocketSelect(sc);
+				System.out.println(idRocket);
+				///Ask for target power(idRocket);
+				ArrayList<Integer> targetPowers = askTargetPowers(sc, idRocket);
 				
+				System.out.println(targetPowers);
 				
 				//ExecutorService executor = Executors.newFixedThreadPool(10);
 				//ThreadPoolExecutor executor = new Thread
-				
-				
+								
 				
 				break;
 
@@ -132,5 +126,64 @@ public class Rockets_main {
 		
 	}
 
-
+	public void showAllRockets() {
+		int idRocket = 0;
+		//String rocketName;
+		System.out.println("We have this Rockets available: ");
+		for (Rocket rocket : myRockets) {
+			System.out.println("*****ROCKET ID = " + idRocket);
+			System.out.println("\tCodeName: " + rocket.getCodeName() + "; Q of Prop: " + rocket.getPropellerList().size());
+			System.out.println("\tMaxPower: " + rocket.getAllMaxPropPower());
+			idRocket += 1;
+		}
+	}
+		
+	public int idRocketSelect(Scanner sc) {
+		int idRocketSelected = 0;
+		showAllRockets();
+		boolean idRocketOK;
+		
+		do {
+			System.out.print("Which Rocket do you want to modify? ID = ");
+			idRocketSelected = sc.nextInt();
+			idRocketOK = (idRocketSelected < myRockets.size());
+			if(!idRocketOK) {
+				System.out.println("**Id not found. Try again***");
+			}
+			
+		}while(!idRocketOK);
+						
+		return idRocketSelected;
+	}
+	
+	public ArrayList<Integer> askTargetPowers(Scanner sc, int idRocket){
+		int qProp = myRockets.get(idRocket).getPropellerList().size();
+		ArrayList<Integer> targetPowers = new ArrayList<Integer>();
+		
+		System.out.println("Rocket "+idRocket+" has " + qProp +" propellers");
+		System.out.println("Enter targert power for each propeller:");
+		
+		for (int i = 0; i < qProp; i++) {
+			int userTargetPower;
+			int maxPower = myRockets.get(idRocket).getPropellerList().get(i).getMaxPower();
+			System.out.print("Target Power Propeller " + i + "(Max. "+ maxPower +")" +" = ");
+			boolean targetOK;
+			do {
+				userTargetPower = sc.nextInt();
+				targetOK = (userTargetPower <= maxPower);
+				if(targetOK) {
+					targetPowers.add(userTargetPower);
+				}else {
+					System.out.print("To much power for that propeller. Enter new target power");
+				}
+				
+			}while(!targetOK);
+			
+		}
+		
+		return targetPowers;
+	}
 }
+	
+
+
