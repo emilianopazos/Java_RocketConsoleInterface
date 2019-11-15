@@ -56,7 +56,8 @@ public class Rocket {
 	}
 	
 	//OLD VERSION WITHOUT USER INTERFACE
-	////Used for CruiseVelocity
+	////Launch Threads without ExecutorService
+	////Still Used for CruiseVelocity, to keep it as example
 	public void setAllTargetPropPower(int AllTargetPropPower[]) {
 		for (int i = 0; i < AllTargetPropPower.length; i++) {
 			if (propellerList.get(i).isSetTargetPower(AllTargetPropPower[i])) {
@@ -67,7 +68,9 @@ public class Rocket {
 		}
 		
 	}
-	/////Metodo nuevo con executor 
+	
+	/////SetTargetPower and launch an ExecutorService with all runnables
+	///Generic for all Rockets. Receives arrayList of target power
 	public void setAllTargetPropPowerExecutor(ArrayList<Integer> AllTargetPropPower) {
 		ExecutorService changePower = Executors.newFixedThreadPool(this.getPropellerList().size());
 			
