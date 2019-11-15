@@ -30,8 +30,6 @@ public class Propeller implements Runnable {
 	
 	////METHODS
 	public void acelerate() {
-		//this.currentPower += 1;
-		//System.out.println(this.currentPower);
 		this.setCurrentPower(this.currentPower + 1);
 	}
 	
@@ -93,13 +91,14 @@ public class Propeller implements Runnable {
 		return targetPower;
 	}
 
+	public void setTargetPower(int targetPower) {
+		this.targetPower = targetPower;
+	}
 
 
-	public boolean setTargetPower(int targetPower) {
+	public boolean isSetTargetPower(int targetPower) {
 		if (targetPower <= this.maxPower) {
 			this.targetPower = targetPower;
-			//this.run();
-			//this.start();
 			return true;
 		}else {
 			System.out.println("La potencia elegida no se puede alcanzar en este propulsor");
@@ -107,6 +106,7 @@ public class Propeller implements Runnable {
 		}
 		
 	}
+
 
 	
 	

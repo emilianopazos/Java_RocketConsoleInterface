@@ -1,7 +1,8 @@
 package java_Rockets;
 
 import java.util.ArrayList;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Rocket {
 	////ATRIBUTES
@@ -54,11 +55,11 @@ public class Rocket {
 		return allMaxPower;
 	}
 	
-	///Este es el metodo que nuclea los threads de la pool
+	//OLD VERSION WITHOUT USER INTERFACE
+	////Used for CruiseVelocity
 	public void setAllTargetPropPower(int AllTargetPropPower[]) {
 		for (int i = 0; i < AllTargetPropPower.length; i++) {
-			if (propellerList.get(i).setTargetPower(AllTargetPropPower[i])) {
-//				propellerList.get(i).start();
+			if (propellerList.get(i).isSetTargetPower(AllTargetPropPower[i])) {
 				new Thread(propellerList.get(i)).start();
 			}
 						
@@ -66,18 +67,37 @@ public class Rocket {
 		}
 		
 	}
-	
-//	public void setAllTargetPropPowerTHP(int AllTargetPropPower[]) {
-//		for (int i = 0; i < AllTargetPropPower.length; i++) {
-//			if (propellerList.get(i).setTargetPower(AllTargetPropPower[i])) {
-//				//propellerList.get(i).start();
-//				new Thread(propellerList.get(i)).start();
-//			}
-//						
-//			
-//		}
-//		
-//	}
+	/////Metodo nuevo con executor 
+	public void setAllTargetPropPowerExecutor(ArrayList<Integer> AllTargetPropPower) {
+		ExecutorService changePower = Executors.newFixedThreadPool(this.getPropellerList().size());
+			
+		for (int i = 0; i < AllTargetPropPower.size(); i++) {
+			propellerList.get(i).setTargetPower(AllTargetPropPower.get(i));		
+			changePower.execute(propellerList.get(i));
+		}
+		
+		changePower.shutdown();//do not accept any new task
+		String prevRocketPropState = this.getAllCurrentPower();
+		
+		do {
+					
+			String currentRocketPropState = this.getAllCurrentPower();
+			boolean changeInAccel = false;
+			
+			if (!currentRocketPropState.contentEquals(prevRocketPropState)) {
+				prevRocketPropState = currentRocketPropState;
+				changeInAccel = true;
+			}
+		
+			if(changeInAccel) {
+				System.out.println("Rocket " + this.getCodeName() +" propellers changed to: " + this.getAllCurrentPower());
+			}
+			
+			
+		}while(!changePower.isTerminated());
+
+		System.out.println("End whit power changes \n");
+	}
 	
 	public String getAllCurrentPower() {
 		String delimiter = ",";
